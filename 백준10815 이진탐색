@@ -1,0 +1,48 @@
+// https://www.acmicpc.net/problem/10815
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+void output(int arr[], int com[], int len, int comlen) {
+	for (int i = 0; i < comlen; i++)
+	{
+		int low = 0, high = len - 1;
+		int out = 0;  // 1 : 가지고 있음, 0 : 가지고 있지 않음
+		while (low <= high) {  // 60 -> 10, 20, 45, 60, 100
+			int mid = (low + high) / 2;
+			if (com[i] < arr[mid])
+				high = mid - 1;
+			else if (com[i] > arr[mid])
+				low = mid + 1;
+			else {
+				out = 1;
+				break;
+			}
+		}
+		cout << out << " ";
+	}
+	cout << endl;
+}
+
+int main() {
+	int* arr, len;
+	int* compare, comlen;
+
+	cin >> len;
+	arr = new int[len];
+	for (int i = 0; i < len; i++)
+		cin >> arr[i];
+	sort(arr, arr + len);
+
+	cin >> comlen;
+	compare = new int[comlen];
+	for (int i = 0; i < comlen; i++)
+		cin >> compare[i];
+
+	output(arr, compare, len, comlen);
+
+	delete[]arr;
+	delete[]compare;
+
+	return 0;
+}
